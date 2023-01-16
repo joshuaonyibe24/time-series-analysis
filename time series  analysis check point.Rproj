@@ -1,13 +1,19 @@
-Version: 1.0
 
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
+data<- read.csv('AirPassengers.csv')
+#see exploring  dataset
+head(data)
+tail(data)
+summary(data)
+table(data$X.Passengers)
+class(data)
 
-EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: UTF-8
+data['Passengers'] <- data['X.Passengers']
 
-RnwWeave: Sweave
-LaTeX: pdfLaTeX
+data <- data[, !names(data) %in% c ('X.Passengers')]
+head(data)
+
+data.ts = ts(data, frequency = 12, start=c(1949, 01))
+
+plot.ts(s=data.ts)
+
+plot(data$X.Passengers, type = '0')
